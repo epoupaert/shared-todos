@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <filter>
+        <filter-name>com.sun.jersey.spi.container.servlet.ServletContainer</filter-name>
+        <filter-class>com.sun.jersey.spi.container.servlet.ServletContainer</filter-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>eu.europa.ec.todo</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.JSPTemplatesBasePath</param-name>
+            <param-value>/WEB-INF/jsp</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.WebPageContentRegex</param-name>
+            <param-value>/(js|css|img)/.*</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>com.sun.jersey.spi.container.servlet.ServletContainer</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
