@@ -47,7 +47,7 @@ public class TodoService {
     }
 
     public void update(Todo todo) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        em.merge(todo);
     }
 
 }
