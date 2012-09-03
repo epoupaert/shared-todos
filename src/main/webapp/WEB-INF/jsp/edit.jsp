@@ -14,15 +14,11 @@
     <body>
 
         <div class="container">
-            <h1>Task (${it.id})</h1>
+            <h1>Edit task (${it.id})</h1>
 
             <form method="POST">
                 <label>Description</label>
                 <input type="text" name="description" placeholder="Type something…" value="${it.description}">
-                <label class="checkbox">
-                    <input type="checkbox" name="done" value="true" <c:if test="${it.status == 'closed'}">checked="checked"</c:if>>
-                    This task is already finished!
-                </label>
                 <div class="form-actions">
                     <button type="submit" name="action" value="save" class="btn btn-primary">Save</button>
                     <button type="submit" name="action" value="cancel" class="btn">Cancel</button>

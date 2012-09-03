@@ -40,17 +40,11 @@ public class TodoResource {
     
     @POST
     @Consumes("application/x-www-form-urlencoded")
-    public Response create(
-            @FormParam("description") String description,
-            @FormParam("done") boolean done
-            ) throws ServiceException {        
-        System.out.println("DESC: " + description + ", DONE: " + done);
+    public Response create(@FormParam("description") String description) throws ServiceException {        
+        System.out.println("DESC: " + description);
         
         if (description != null && !description.isEmpty()) {
             Todo todo = new Todo(description);
-            if (done) {
-                todo.setStatus(State.closed);
-            }
             service.create(todo);
         }
         
@@ -59,9 +53,38 @@ public class TodoResource {
     }
 
     @GET
+    @Path("/{id}")
+    public Viewable details(@PathParam("id") Long id) {
+        Todo todo = service.get(id);
+        return new Viewable("/details", todo);
+    }
+
+    @POST
+    @Path("/{id}")
+    @Consumes("application/x-www-form-urlencoded")
+    public Response update(@FormParam("action") String action, @PathParam("id") Long id) throws ServiceException 
+    {
+        if ("complete".equals(action)) {
+            Todo todo = service.get(id);
+            todo.setStatus(State.completed);
+            service.update(todo);            
+        } else if ("cancel".equals(action)) {
+            Todo todo = service.get(id);
+            todo.setStatus(State.cancelled);
+            service.update(todo);            
+        } else if ("reopen".equals(action)) {
+            Todo todo = service.get(id);
+            todo.setStatus(State.created);
+            service.update(todo);            
+        }
+
+        URI uri = UriBuilder.fromResource(TodoResource.class).build();
+        return Response.seeOther(uri).build();
+    }     
+
+    @GET
     @Path("/{id}/edit")
     public Viewable edit(@PathParam("id") Long id) {
-        System.out.println("ID: " + id);
         Todo todo = service.get(id);
         return new Viewable("/edit", todo);
     }
@@ -72,8 +95,7 @@ public class TodoResource {
     public Response update(
             @FormParam("action") String action,
             @PathParam("id") Long id,
-            @FormParam("description") String description,
-            @FormParam("done") boolean done
+            @FormParam("description") String description
             ) throws ServiceException 
     {        
         System.out.println("Action: " + action);        
@@ -83,7 +105,6 @@ public class TodoResource {
             if (description != null && !description.isEmpty()) {
                 todo.setDescription(description);
             }
-            todo.setStatus(done ? State.closed : State.created);
             service.update(todo);
         }
         

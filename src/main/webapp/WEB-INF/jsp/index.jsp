@@ -23,7 +23,7 @@
                 <c:when test="${not empty it}">
                     <ul>
                         <c:forEach var="task" items="${it}">
-                            <li>${task.description} (${task.status}) [<a href="${pageContext.request.contextPath}/todo/${task.id}/edit">edit</a>]</li>
+                            <li>${task.description} (${task.status}) [<a href="${pageContext.request.contextPath}/todo/${task.id}">details</a>]</li>
                         </c:forEach>
                     </ul>
                 </c:when>
@@ -34,15 +34,11 @@
             
             <p><a href="${pageContext.request.contextPath}/todo/top">Show the top tasks...</a></p>
 
-            <form method="POST">
-                <label>Task</label>
+            <form method="POST" action="${pageContext.request.contextPath}/todo">
+                <label>New task</label>
                 <input type="text" name="description" placeholder="Type something…"><br>
-                <label class="checkbox">
-                    <input type="checkbox" name="done" value="true">
-                    This task is already finished!
-                </label>
                 <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Create</button>
+                    <button type="submit" class="btn btn-primary">Create</button>
                 </div>
             </form>
                         </div>                    

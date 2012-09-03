@@ -35,13 +35,9 @@
             <p><a href="${pageContext.request.contextPath}/todo">Show all the tasks...</a></p>
             
             <form method="POST" action="${pageContext.request.contextPath}/todo">
-                <label>Task</label>
+                <label>New task</label>
                 <input type="text" name="description" placeholder="Type something…"><br>
-                <label class="checkbox">
-                    <input type="checkbox" name="done" value="true">
-                    This task is already finished!
-                </label>
-                <div class="form-actions">
+                    <div class="form-actions">
                 <button type="submit" class="btn btn-primary">Create</button>
                 </div>
             </form>
