@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Task</title>
+        <title>Edit task</title>
         <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
         <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -17,13 +17,16 @@
             <h1>Task (${it.id})</h1>
 
             <form method="POST">
-                <label>Task</label>
+                <label>Description</label>
                 <input type="text" name="description" placeholder="Type something…" value="${it.description}">
                 <label class="checkbox">
                     <input type="checkbox" name="done" value="true" <c:if test="${it.status == 'closed'}">checked="checked"</c:if>>
                     This task is already finished!
                 </label>
-                <button type="submit" class="btn">Save</button>
+                <div class="form-actions">
+                    <button type="submit" name="action" value="save" class="btn btn-primary">Save</button>
+                    <button type="submit" name="action" value="cancel" class="btn">Cancel</button>
+                </div>
             </form>
                     
         </div>

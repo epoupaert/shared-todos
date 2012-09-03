@@ -23,7 +23,7 @@
                 <c:when test="${not empty it}">
                     <ul>
                         <c:forEach var="task" items="${it}">
-                            <li>${task.description} (${task.status}, ${task.id})</li>
+                            <li>${task.description} (${task.status}) [<a href="${pageContext.request.contextPath}/todo/${task.id}/edit">edit</a>]</li>
                         </c:forEach>
                     </ul>
                 </c:when>
@@ -39,10 +39,11 @@
                     <input type="checkbox" name="done" value="true">
                     This task is already finished!
                 </label>
-                <button type="submit" class="btn">Create</button>
+                <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Create</button>
+                </div>
             </form>
-                    
-        </div>
+                        </div>                    
 
         <script src="${pageContext.request.contextPath}/js/jquery-1.8.0.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>

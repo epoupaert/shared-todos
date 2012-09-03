@@ -63,20 +63,22 @@ public class TodoResource {
     @Path("/{id}/edit")
     @Consumes("application/x-www-form-urlencoded")
     public Response update(
+            @FormParam("action") String action,
             @PathParam("id") Long id,
             @FormParam("description") String description,
             @FormParam("done") boolean done
             ) throws ServiceException 
     {        
-        System.out.println("DESC: " + description + ", DONE: " + done);
-    
-        System.out.println("ID: " + id);
-        Todo todo = service.get(id);
-        if (description != null && !description.isEmpty()) {
-            todo.setDescription(description);
+        System.out.println("Action: " + action);        
+
+        if ("save".equals(action)) {
+            Todo todo = service.get(id);
+            if (description != null && !description.isEmpty()) {
+                todo.setDescription(description);
+            }
+            todo.setStatus(done ? State.closed : State.created);
+            service.update(todo);
         }
-        todo.setStatus(done ? State.closed : State.created);
-        service.update(todo);
         
         URI uri = UriBuilder.fromResource(TodoResource.class).build();
         return Response.seeOther(uri).build();
