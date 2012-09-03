@@ -47,9 +47,7 @@ public class TodoResource {
             Todo todo = new Todo(description);
             service.create(todo);
         }
-        
-        URI uri = UriBuilder.fromResource(TodoResource.class).build();
-        return Response.seeOther(uri).build();
+        return allTasksRedirect();
     }
 
     @GET
@@ -77,9 +75,7 @@ public class TodoResource {
             todo.setStatus(State.created);
             service.update(todo);            
         }
-
-        URI uri = UriBuilder.fromResource(TodoResource.class).build();
-        return Response.seeOther(uri).build();
+        return allTasksRedirect();
     }     
 
     @GET
@@ -107,7 +103,10 @@ public class TodoResource {
             }
             service.update(todo);
         }
-        
+        return allTasksRedirect();        
+    }
+
+    private Response allTasksRedirect() {
         URI uri = UriBuilder.fromResource(TodoResource.class).build();
         return Response.seeOther(uri).build();
     }
