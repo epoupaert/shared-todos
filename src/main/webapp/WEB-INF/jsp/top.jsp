@@ -4,7 +4,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>All tasks</title>
+        <title>Top tasks</title>
         <meta name="description" content="">
         <meta name="author" content="">
 
@@ -17,7 +17,7 @@
     <body>
 
         <div class="container">
-            <h1>All tasks</h1>
+            <h1>Top tasks</h1>
 
             <c:choose>
                 <c:when test="${not empty it}">
@@ -28,13 +28,13 @@
                     </ul>
                 </c:when>
                 <c:otherwise>
-                    <p>No task yet!</p>
+                    <p>No active task!</p>
                 </c:otherwise>
             </c:choose>
+                        
+            <p><a href="${pageContext.request.contextPath}/todo">Show all the tasks...</a></p>
             
-            <p><a href="${pageContext.request.contextPath}/todo/top">Show the top tasks...</a></p>
-
-            <form method="POST">
+            <form method="POST" action="${pageContext.request.contextPath}/todo">
                 <label>Task</label>
                 <input type="text" name="description" placeholder="Type something…"><br>
                 <label class="checkbox">

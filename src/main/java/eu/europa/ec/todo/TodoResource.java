@@ -30,7 +30,14 @@ public class TodoResource {
         List<Todo> all = service.all();        
         return new Viewable("/index", all);
     }
-        
+
+    @GET
+    @Path("/top")
+    public Viewable top() {
+        List<Todo> all = service.top(5);
+        return new Viewable("/top", all);        
+    }
+    
     @POST
     @Consumes("application/x-www-form-urlencoded")
     public Response create(
