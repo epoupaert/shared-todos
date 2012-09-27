@@ -23,7 +23,7 @@ import javax.ws.rs.core.UriBuilder;
 public class TodoResource {
 
     @EJB
-    TodoService service;
+    private TodoService service;
 
     @GET
     public Viewable all() {
