@@ -15,19 +15,31 @@
     <body>
 
         <div class="container">
-            <h1>Edit task (${it.id})</h1>
+            <h2>Edit task</h2>
 
-            <p>Created on: <fmt:formatDate value="${it.createdOn}" type="both" dateStyle="medium" timeStyle="short"/></p>
+            <dl class="dl-horizontal">
+                <dt>ID</dt>
+                <dd>${it.id}</dd>
+                <dt>Created on</dt>
+                <dd><fmt:formatDate value="${it.createdOn}" type="both" dateStyle="medium" timeStyle="short"/></dd>
+            </dl>
 
-            <form method="POST">
-                <label>Description</label>
-                <input type="text" name="description" placeholder="Type something…" value="${it.description}">
-                <div class="form-actions">
-                    <button type="submit" name="action" value="save" class="btn btn-primary">Save</button>
-                    <button type="submit" name="action" value="cancel" class="btn">Cancel</button>
+            <form method="POST" class="form-horizontal">
+                <legend>Edit this task</legend>
+                <div class="control-group">
+                    <label class="control-label" for="description">Description</label>
+                    <div class="controls">
+                        <input type="text" id="description" name="description" placeholder="Type something…" value="${it.description}">
+                    </div>
                 </div>
-            </form>
-                    
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" name="action" value="save" class="btn btn-primary">Save</button>
+                        <button type="submit" name="action" value="cancel" class="btn">Cancel</button>
+                    </div>
+                </div>
+            </form>                
+
         </div>
 
         <script src="${pageContext.request.contextPath}/js/jquery-1.8.0.min.js"></script>

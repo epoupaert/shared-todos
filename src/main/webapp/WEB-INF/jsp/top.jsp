@@ -17,7 +17,7 @@
     <body>
 
         <div class="container">
-            <h1>Top tasks</h1>
+            <h2>Top tasks</h2>
 
             <c:choose>
                 <c:when test="${not empty it}">
@@ -34,14 +34,12 @@
                         
             <p><a href="${pageContext.request.contextPath}/todo">Show all the tasks...</a></p>
             
-            <form method="POST" action="${pageContext.request.contextPath}/todo">
-                <label>New task</label>
-                <input type="text" name="description" placeholder="Type something…"><br>
-                    <div class="form-actions">
+            <form method="POST" action="${pageContext.request.contextPath}/todo" class="form-inline">
+                <legend>New task</legend>
+                <input type="text" name="description" class="input-xxlarge" placeholder="Task description...">
                 <button type="submit" class="btn btn-primary">Create</button>
-                </div>
             </form>
-                        </div>                    
+        </div>                    
 
         <script src="${pageContext.request.contextPath}/js/jquery-1.8.0.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>

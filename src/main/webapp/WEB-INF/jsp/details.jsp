@@ -15,25 +15,30 @@
     <body>
 
         <div class="container">
-            <h1>Task details (${it.id})</h1>
+            <h2>Task details</h2>
             
-            <p>Description: ${it.description}</p>
-            <p>Created on: <fmt:formatDate value="${it.createdOn}" type="both" dateStyle="medium" timeStyle="short"/></p>
+            <dl class="dl-horizontal">
+                <dt>ID</dt>
+                <dd>${it.id}</dd>
+                <dt>Description</dt>
+                <dd>${it.description}</dd>
+                <dt>Created on</dt>
+                <dd><fmt:formatDate value="${it.createdOn}" type="both" dateStyle="medium" timeStyle="short"/></dd>
+            </dl>
 
             <p><a href="${pageContext.request.contextPath}/todo/${it.id}/edit">Edit this task...</a></p>
 
-            <form method="POST">
-                <div class="form-actions">
-                    <c:choose>
-                        <c:when test="${it.status == 'created'}">
-                            <button type="submit" name="action" value="complete" class="btn btn-primary">Complete</button>
-                            <button type="submit" name="action" value="cancel" class="btn btn-danger">Cancel</button>
-                        </c:when>
-                        <c:otherwise>
-                            <button type="submit" name="action" value="reopen" class="btn btn-danger">Reopen</button>                            
-                        </c:otherwise>
-                    </c:choose>
-                </div>
+            <form method="POST" class="form-inline">
+                <legend>Actions on this task</legend>
+                <c:choose>
+                    <c:when test="${it.status == 'created'}">
+                        <button type="submit" name="action" value="complete" class="btn btn-primary">Complete</button>
+                        <button type="submit" name="action" value="cancel" class="btn btn-danger">Cancel</button>
+                    </c:when>
+                    <c:otherwise>
+                        <button type="submit" name="action" value="reopen" class="btn btn-danger">Reopen</button>                            
+                    </c:otherwise>
+                </c:choose>
             </form>
                     
         </div>
