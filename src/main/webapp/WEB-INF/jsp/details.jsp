@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,6 +18,7 @@
             <h1>Task details (${it.id})</h1>
             
             <p>Description: ${it.description}</p>
+            <p>Created on: <fmt:formatDate value="${it.createdOn}" type="both" dateStyle="medium" timeStyle="short"/></p>
 
             <p><a href="${pageContext.request.contextPath}/todo/${it.id}/edit">Edit this task...</a></p>
 

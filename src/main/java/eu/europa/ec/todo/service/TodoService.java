@@ -2,6 +2,7 @@ package eu.europa.ec.todo.service;
 
 import eu.europa.ec.todo.model.State;
 import eu.europa.ec.todo.model.Todo;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,7 +26,7 @@ public class TodoService {
 
     public void create(Todo todo) throws ServiceException 
     {
-        todo.set
+        todo.setCreatedOn(new Date());
         em.persist(todo);
     }
 
