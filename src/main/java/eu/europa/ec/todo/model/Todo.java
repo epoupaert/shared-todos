@@ -67,4 +67,36 @@ public class Todo implements Serializable {
     public void setStatus(State status) {
         this.status = status;
     }    
+
+    public Date getCreatedOn() {
+        return createdOn;
+    }
+
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public Person getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Person createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Date getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
 }

@@ -25,6 +25,7 @@ public class TodoService {
 
     public void create(Todo todo) throws ServiceException 
     {
+        todo.set
         em.persist(todo);
     }
 
