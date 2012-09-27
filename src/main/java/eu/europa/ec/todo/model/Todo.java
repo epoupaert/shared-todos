@@ -1,23 +1,40 @@
 package eu.europa.ec.todo.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
+@Table(name="TASKS")
 public class Todo implements Serializable {
     
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
 
+    @Basic(optional=false)
     private String description;
     
     @Enumerated
     private State status;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
+
+    private Person createdBy;
+
+    @Temporal(TemporalType.DATE)
+    private Date dueDate;
+
+    private Person owner;
 
     public Todo() {
     }
