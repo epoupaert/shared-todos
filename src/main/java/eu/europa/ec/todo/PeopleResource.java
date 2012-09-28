@@ -2,7 +2,6 @@ package eu.europa.ec.todo;
 
 import com.sun.jersey.api.view.Viewable;
 import eu.europa.ec.todo.model.Person;
-import eu.europa.ec.todo.model.Todo;
 import eu.europa.ec.todo.service.PeopleService;
 import eu.europa.ec.todo.service.ServiceException;
 import java.net.URI;
@@ -41,10 +40,12 @@ public class PeopleResource {
     @POST
     @Consumes("application/x-www-form-urlencoded")
     public Response create(
+            @FormParam("username") String username,
             @FormParam("firstName") String firstName,
             @FormParam("lastName") String lastName) throws ServiceException {
 
         Person person = new Person();
+        person.setUsername(username);
         person.setFirstName(firstName);
         person.setLastName(lastName);
         service.create(person);

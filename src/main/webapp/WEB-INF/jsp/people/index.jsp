@@ -23,7 +23,7 @@
                 <c:when test="${not empty it}">
                     <ul>
                         <c:forEach var="user" items="${it}">
-                            <li>${user.displayName} (${user.id}) [<a href="${pageContext.request.contextPath}/people/${user.id}">details</a>]</li>
+                            <li>${user.displayName} (${user.id}, ${user.username}) [<a href="${pageContext.request.contextPath}/people/${user.id}">details</a>]</li>
                         </c:forEach>
                     </ul>
                 </c:when>
@@ -34,6 +34,7 @@
             
             <form method="POST" action="${pageContext.request.contextPath}/people" class="form-inline">
                 <legend>Create new user</legend>
+                <input type="text" name="username" placeholder="User Name" class="input-medium">
                 <input type="text" name="firstName" placeholder="First name...">
                 <input type="text" name="lastName" placeholder="Last name...">
                 <button type="submit" class="btn btn-primary">Create</button>

@@ -19,6 +19,8 @@
             <dl class="dl-horizontal">
                 <dt>ID</dt>
                 <dd>${it.id}</dd>
+                <dt>Username</dt>
+                <dd>${it.username}</dd>
                 <dt>First name</dt>
                 <dd>${it.firstName}</dd>
                 <dt>Last name</dt>
