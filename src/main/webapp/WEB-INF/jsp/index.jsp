@@ -16,13 +16,23 @@
 
     <body>
 
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="#">Shared Todos</a>
+                    <p class="navbar-text pull-right">Welcome ${it.user.firstName}!</p>
+                </div>
+            </div>
+        </div>
+
         <div class="container">
+
             <h2>All tasks</h2>
 
             <c:choose>
-                <c:when test="${not empty it}">
+                <c:when test="${not empty it.tasks}">
                     <ul>
-                        <c:forEach var="task" items="${it}">
+                        <c:forEach var="task" items="${it.tasks}">
                             <li>${task.description} (${task.status}) [<a href="${pageContext.request.contextPath}/todo/${task.id}">details</a>]</li>
                         </c:forEach>
                     </ul>
