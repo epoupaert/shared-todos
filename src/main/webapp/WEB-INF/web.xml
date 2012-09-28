@@ -20,4 +20,25 @@
         <filter-name>com.sun.jersey.spi.container.servlet.ServletContainer</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    <security-constraint>
+        <display-name>authenticate-user</display-name>
+        <web-resource-collection>
+            <web-resource-name>todo</web-resource-name>
+            <description/>
+            <url-pattern>/todo</url-pattern>
+            <url-pattern>/todo/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>Authenticated</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>file</realm-name>
+    </login-config>
+    <security-role>
+        <description/>
+        <role-name>Authenticated</role-name>
+    </security-role>
 </web-app>

@@ -15,7 +15,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriBuilder;
 
 @Path("/todo")
@@ -25,8 +27,13 @@ public class TodoResource {
     @EJB
     private TodoService service;
 
+    @Context
+    private SecurityContext sc;
+    
     @GET
     public Viewable all() {
+        String name = sc.getUserPrincipal().getName();
+        System.out.println("ALL Principal: " + name);
         List<Todo> all = service.all();        
         return new Viewable("/index", all);
     }
