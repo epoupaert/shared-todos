@@ -19,11 +19,11 @@
 
             <dl class="dl-horizontal">
                 <dt>ID</dt>
-                <dd>${it.id}</dd>
+                <dd>${it.task.id}</dd>
                 <dt>Created on</dt>
-                <dd><fmt:formatDate value="${it.createdOn}" type="both" dateStyle="medium" timeStyle="short"/></dd>
+                <dd><fmt:formatDate value="${it.task.createdOn}" type="both" dateStyle="medium" timeStyle="short"/></dd>
                 <dt>Created by</dt>
-                <dd>${it.createdBy.displayName}</dd>
+                <dd>${it.task.createdBy.displayName}</dd>
             </dl>
 
             <form method="POST" class="form-horizontal">
@@ -31,7 +31,22 @@
                 <div class="control-group">
                     <label class="control-label" for="description">Description</label>
                     <div class="controls">
-                        <input type="text" id="description" name="description" placeholder="Type something…" value="${it.description}">
+                        <input type="text" id="description" name="description" placeholder="Type something…" value="${it.task.description}">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="owner">Owner</label>
+                    <div class="controls">
+                        <select id="owner" name="owner">
+                            <option value="-1"
+                                <c:if test="${empty it.task.owner}">selected="selected"</c:if>
+                            >None...</option>
+                            <c:forEach var="user" items="${it.people}">
+                                <option value="${user.id}"
+                                    <c:if test="${user.id eq it.task.owner.id}">selected="selected"</c:if>
+                                >${user.displayName}</option>
+                            </c:forEach>
+                        </select>
                     </div>
                 </div>
                 <div class="control-group">

@@ -8,7 +8,9 @@ import eu.europa.ec.todo.service.PeopleService;
 import eu.europa.ec.todo.service.ServiceException;
 import eu.europa.ec.todo.service.TodoService;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.ManagedBean;
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -116,7 +118,13 @@ public class TodoResource {
     @Path("/{id}/edit")
     public Viewable edit(@PathParam("id") Long id) {
         Todo todo = service.get(id);
-        return new Viewable("/edit", todo);
+        List<Person> allPeople = peopleService.all();
+        
+        Map model = new HashMap();
+        model.put("task", todo);
+        model.put("people", allPeople);
+        
+        return new Viewable("/edit", model);
     }
     
     @POST
@@ -125,7 +133,8 @@ public class TodoResource {
     public Response update(
             @FormParam("action") String action,
             @PathParam("id") Long id,
-            @FormParam("description") String description
+            @FormParam("description") String description,
+            @FormParam("owner") Long ownerId
             ) throws ServiceException 
     {        
         System.out.println("Action: " + action);        
@@ -135,6 +144,16 @@ public class TodoResource {
             if (description != null && !description.isEmpty()) {
                 todo.setDescription(description);
             }
+            
+            if (ownerId == null || ownerId == -1) {
+                System.out.println("Owner: [NONE]");        
+                todo.setOwner(null);
+            } else {
+                System.out.println("Owner ID: " + ownerId);
+                Person owner = peopleService.get(ownerId);
+                todo.setOwner(owner);
+            }
+            
             service.update(todo);
         }
         return allTasksRedirect();        
