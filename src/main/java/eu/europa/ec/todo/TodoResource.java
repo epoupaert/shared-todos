@@ -34,6 +34,12 @@ public class TodoResource {
 
     @Context
     private SecurityContext sc;
+
+    private Person getCurrentUser() {
+        String username = sc.getUserPrincipal().getName();
+        Person user = peopleService.getByUsername(username);
+        return user;
+    }
     
     public class TasksDTO {
         private Person user;
@@ -52,34 +58,27 @@ public class TodoResource {
     
     @GET
     public Viewable all() {
-        String username = sc.getUserPrincipal().getName();
-        System.out.println("ALL Principal: " + username);
-
-        Person user = peopleService.getByUsername(username);        
-        List<Todo> all = service.all();
-        
-        return new Viewable("/index", new TasksDTO(user, all));
+        Person currentUser = getCurrentUser();
+        List<Todo> allTasks = service.all();        
+        return new Viewable("/index", new TasksDTO(currentUser, allTasks));
     }
 
     @GET
     @Path("/top")
     public Viewable top() {
-        String username = sc.getUserPrincipal().getName();
-        System.out.println("ALL Principal: " + username);
-
-        Person user = peopleService.getByUsername(username);        
-
-        List<Todo> top = service.top(5);
-        return new Viewable("/top",  new TasksDTO(user, top));        
+        Person currentUser = getCurrentUser();
+        List<Todo> topTasks = service.top(5);
+        return new Viewable("/top",  new TasksDTO(currentUser, topTasks));        
     }
     
     @POST
     @Consumes("application/x-www-form-urlencoded")
     public Response create(@FormParam("description") String description) throws ServiceException {        
-        System.out.println("DESC: " + description);
-        
         if (description != null && !description.isEmpty()) {
+            Person user = getCurrentUser();
             Todo todo = new Todo(description);
+            todo.setCreatedBy(user);
+            todo.setOwner(user);
             service.create(todo);
         }
         return allTasksRedirect();

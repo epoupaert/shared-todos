@@ -22,6 +22,8 @@
                 <dd>${it.id}</dd>
                 <dt>Created on</dt>
                 <dd><fmt:formatDate value="${it.createdOn}" type="both" dateStyle="medium" timeStyle="short"/></dd>
+                <dt>Created by</dt>
+                <dd>${it.createdBy.displayName}</dd>
             </dl>
 
             <form method="POST" class="form-horizontal">
