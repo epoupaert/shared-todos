@@ -30,6 +30,10 @@ public class PeopleService {
         return findById(id).getSingleResult();
     }
 
+    public Person getByUsername(String username) {        
+        return findByUsername(username).getSingleResult();
+    }
+
     public void update(Person person) {
         em.merge(person);
     }
@@ -54,5 +58,14 @@ public class PeopleService {
         return em.createQuery(cq);
     }
 
+    private TypedQuery<Person> findByUsername(String username) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Person> cq = cb.createQuery(Person.class);
+        Root<Person> from = cq.from(Person.class);
+        cq.select(from);
+        Predicate p = cb.equal(from.get("username"), username);
+        cq.where(p);
+        return em.createQuery(cq);
+    }
 
 }

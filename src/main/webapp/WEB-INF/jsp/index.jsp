@@ -9,6 +9,12 @@
         <meta name="author" content="">
 
         <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet">
+        <style type="text/css">
+            body {
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+        </style>
         <!--[if lt IE 9]>
           <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
@@ -20,13 +26,17 @@
             <div class="navbar-inner">
                 <div class="container">
                     <a class="brand" href="#">Shared Todos</a>
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="${pageContext.request.contextPath}/todo">All tasks</a></li>
+                        <li><a href="${pageContext.request.contextPath}/todo/top">Top tasks</a></li>
+                        <li><a href="${pageContext.request.contextPath}/people">Users</a></li>
+                    </ul>
                     <p class="navbar-text pull-right">Welcome ${it.user.firstName}!</p>
                 </div>
             </div>
         </div>
 
         <div class="container">
-
             <h2>All tasks</h2>
 
             <c:choose>
@@ -42,8 +52,6 @@
                 </c:otherwise>
             </c:choose>
             
-            <p><a href="${pageContext.request.contextPath}/todo/top">Show the top tasks...</a></p>
-
             <form method="POST" action="${pageContext.request.contextPath}/todo" class="form-inline">
                 <legend>New task</legend>
                 <input type="text" name="description" class="input-xxlarge" placeholder="Task description...">

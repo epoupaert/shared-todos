@@ -1,8 +1,10 @@
 package eu.europa.ec.todo;
 
 import com.sun.jersey.api.view.Viewable;
+import eu.europa.ec.todo.model.Person;
 import eu.europa.ec.todo.model.State;
 import eu.europa.ec.todo.model.Todo;
+import eu.europa.ec.todo.service.PeopleService;
 import eu.europa.ec.todo.service.ServiceException;
 import eu.europa.ec.todo.service.TodoService;
 import java.net.URI;
@@ -27,22 +29,48 @@ public class TodoResource {
     @EJB
     private TodoService service;
 
+    @EJB
+    private PeopleService peopleService;
+
     @Context
     private SecurityContext sc;
     
+    public class TasksDTO {
+        private Person user;
+        private List<Todo> tasks;
+        public TasksDTO(Person user, List<Todo> tasks) {
+            this.user = user;
+            this.tasks = tasks;
+        }
+        public Person getUser() {
+            return user;
+        }
+        public List<Todo> getTasks() {
+            return tasks;
+        }
+    }
+    
     @GET
     public Viewable all() {
-        String name = sc.getUserPrincipal().getName();
-        System.out.println("ALL Principal: " + name);
-        List<Todo> all = service.all();        
-        return new Viewable("/index", all);
+        String username = sc.getUserPrincipal().getName();
+        System.out.println("ALL Principal: " + username);
+
+        Person user = peopleService.getByUsername(username);        
+        List<Todo> all = service.all();
+        
+        return new Viewable("/index", new TasksDTO(user, all));
     }
 
     @GET
     @Path("/top")
     public Viewable top() {
-        List<Todo> all = service.top(5);
-        return new Viewable("/top", all);        
+        String username = sc.getUserPrincipal().getName();
+        System.out.println("ALL Principal: " + username);
+
+        Person user = peopleService.getByUsername(username);        
+
+        List<Todo> top = service.top(5);
+        return new Viewable("/top",  new TasksDTO(user, top));        
     }
     
     @POST
@@ -113,7 +141,7 @@ public class TodoResource {
         return allTasksRedirect();        
     }
 
-    private Response allTasksRedirect() {
+    public static Response allTasksRedirect() {
         URI uri = UriBuilder.fromResource(TodoResource.class).build();
         return Response.seeOther(uri).build();
     }

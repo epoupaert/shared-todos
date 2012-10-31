@@ -52,7 +52,7 @@ public class PeopleResource {
         return allPeopleRedirect();
     }
 
-    private Response allPeopleRedirect() {
+    public static Response allPeopleRedirect() {
         URI uri = UriBuilder.fromResource(PeopleResource.class).build();
         return Response.seeOther(uri).build();
     }
